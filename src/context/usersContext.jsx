@@ -1,10 +1,14 @@
 import { createContext, useContext, useState, useEffect, useMemo } from 'react';
 import data from '../data/initialUsersData.json';
+import { create } from 'zustand';
+
+const useUserStore = create((set) => ({
+  usersData: [],
+  setUsersData: set((state) => ({})),
+}));
 
 // initial value
 const UsersContext = createContext({
-  usersData: [],
-  setUsersData: () => {},
   loading: false,
 });
 

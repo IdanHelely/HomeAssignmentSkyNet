@@ -1,13 +1,14 @@
+import React from 'react';
 import UsersList from './usersList/UsersList';
 import PrimaryButton from '../../components/PrimaryButton';
-import styles from './users.module.css';
+import css from './usersPage.module.scss';
 
-function UsersPage() {
+export default function UsersPage() {
   return (
-    <div className={styles.pageRoot}>
-      <div className={styles.pageContentContainer}>
+    <div className={css.pageRoot}>
+      <div className={css.pageContentContainer}>
         <UsersList />
-        <div className={styles.rightButtonContainer}>
+        <div className={css.rightButtonContainer}>
           <PrimaryButton
             disabled={false}
             // TODO: Implement onClick handler
@@ -19,5 +20,3 @@ function UsersPage() {
     </div>
   );
 }
-
-export default UsersPage;

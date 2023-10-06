@@ -1,7 +1,5 @@
-import styles from './statistics.module.css';
+import styles from './statistics.module.scss';
 
-function StatisticsPage() {
+export default function StatisticsPage() {
   return <div className={styles.pageRoot}>StatisticsPage</div>;
 }
-
-export default StatisticsPage;

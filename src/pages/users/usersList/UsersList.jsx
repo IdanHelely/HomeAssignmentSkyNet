@@ -1,19 +1,20 @@
+import React from 'react';
 import { Button, Typography } from '@mui/material';
 import { useUsersContext } from '../../../context/usersContext';
 import UserRow from '../userRow/UserRow';
 import AddButton from '../../../components/AddButton';
-import styles from '../users.module.css';
+import css from './usersList.module.scss';
 
-function UsersList() {
+export default function UsersList() {
   const { usersData } = useUsersContext();
 
   return (
-    <div className={styles.usersList}>
-      <div className={styles.usersListHeader}>
+    <div className={css.usersList}>
+      <div className={css.usersListHeader}>
         <Typography variant="h6">Users List</Typography>
         <AddButton />
       </div>
-      <div className={styles.usersListContent}>
+      <div className={css.usersListContent}>
         {usersData.map((user) => (
           <UserRow key={user.id} user={user} />
         ))}
@@ -21,5 +22,3 @@ function UsersList() {
     </div>
   );
 }
-
-export default UsersList;

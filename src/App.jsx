@@ -10,7 +10,7 @@ function App() {
       <NavBar />
       <ContextProvider>
         <Routes>
-          <Route path="/" exact element={<StatisticsPage />} />
+          <Route path="/" element={<StatisticsPage />} />
           <Route path="users" element={<UsersPage />} />
         </Routes>
       </ContextProvider>

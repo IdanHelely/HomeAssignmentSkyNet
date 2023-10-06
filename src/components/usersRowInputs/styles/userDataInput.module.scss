@@ -1,0 +1,31 @@
+.string-input {
+  background-color: #909296;
+  color: black;
+  border-radius: 4px;
+  box-shadow: none;
+  text-transform: none;
+  outline: none;
+
+  &:focus::placeholder {
+    transition: color 0.1s linear;
+    color: transparent;
+  }
+}
+
+.number-input {
+  background-color: #909296;
+  color: black;
+  border-radius: 4px;
+  box-shadow: none;
+  text-transform: none;
+  outline: none;
+
+  &::-webkit-inner-spin-button {
+    margin: 0;
+    display: none;
+  }
+  &:focus::placeholder {
+    transition: color 0.1s linear;
+    color: transparent;
+  }
+}
