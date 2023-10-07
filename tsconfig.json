@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
     "jsx": "preserve",
+    "target": "es5",
+    "lib": ["es2020", "dom", "dom.iterable"],
     "baseUrl": "./src",
     "resolveJsonModule": true,
     "esModuleInterop": true,

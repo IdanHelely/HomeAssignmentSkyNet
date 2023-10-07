@@ -1,6 +1,7 @@
 import React from 'react';
 import css from './styles/userDataInput.module.scss';
 import Select from 'react-select';
+import { useDebounce } from '../../libs/essentials';
 
 const selectStyle = {
   // general select
@@ -35,7 +36,7 @@ const selectStyle = {
   // options in the dropdown
   option: (provided: any) => ({
     ...provided,
-    color: 'white',
+    color: 'black',
     backgroundColor: '#909296',
     transition: 'all 0.2s',
     '&:hover': {
@@ -45,7 +46,6 @@ const selectStyle = {
   menu: (provided: any) => ({
     ...provided,
     backgroundColor: '#9b9b9b',
-    direction: 'rtl',
     borderRadius: '0.5rem',
     zIndex: 3,
     overflowY: 'hidden',
@@ -62,7 +62,7 @@ const selectStyle = {
   // chosen value
   singleValue: (provided: any) => ({
     ...provided,
-    color: '#4b4b4b',
+    color: 'black',
   }),
   input: (provided: any) => ({
     ...provided,
@@ -82,6 +82,8 @@ type Props = (
 };
 
 export default function StringInput(props: Props) {
+  useDebounce;
+
   if (props.type === 'stringInput') {
     return (
       <input

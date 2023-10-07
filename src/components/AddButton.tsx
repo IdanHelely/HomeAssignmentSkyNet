@@ -13,18 +13,15 @@ const StyledAddButton = styled(Button)({
   },
 });
 
-const AddButton = ({ disabled, handleClick }) => {
+type Props = {
+  disabled?: boolean;
+  handleClick?: () => void;
+};
+
+export default function AddButton({ disabled, handleClick }: Props) {
   return (
     <StyledAddButton variant="contained" disabled={disabled} onClick={handleClick}>
       <AddIcon fontSize="inherit" />
     </StyledAddButton>
   );
-};
-
-// TODO: Implement passed props
-AddButton.defaultProps = {
-  disabled: false,
-  handleClick: () => {},
-};
-
-export default AddButton;
+}
