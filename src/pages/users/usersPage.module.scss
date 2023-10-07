@@ -5,7 +5,7 @@
   height: calc(100vh - 150px);
 
   .pageContentContainer {
-    width: 890px;
+    width: min(fit-content, 100vw - 150px);
 
     display: flex;
     flex-direction: column;

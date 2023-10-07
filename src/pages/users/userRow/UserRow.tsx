@@ -1,20 +1,55 @@
-import { Grid } from '@mui/material';
-import InputField from '../../../components/InputField';
-import TrashIconButton from '../../../components/TrashIconButton';
+import TrashIconButton from '../../../components/userRow/TrashIconButton';
 import css from './userRow.module.scss';
 
 // user country must be one of those - for select/autocomplete implementation
-// import countryOptions from '../../../data/countries.json';
 
-import React from 'react';
-import DataInput from '../../../components/usersRowInputs/userDataInput';
+import React, { useMemo } from 'react';
+import DataInput from '../../../components/userRow/userDataInput';
+import countryOptions from '../../../data/countries.json';
 
-export default function UserRow({ user }) {
+const countriesOptions = countryOptions.map((country) => ({
+  label: country,
+  value: country,
+}));
+
+type Props = {
+  user: {
+    id: string;
+    name: string;
+    country: string;
+    email: string;
+    phone: string;
+  };
+};
+
+export default function UserRow({ user }: Props) {
   return (
-    <div>
-      UserRow
-      <DataInput type="stringInput" placeholder="name" regex="" />
-      <DataInput type="numberInput" placeholder="phone" regex="" />
+    <div className={css['row-container']}>
+      <DataInput
+        type="stringInput"
+        placeholder="name"
+        regex=""
+        defaultValue={user.name}
+      />
+      <DataInput
+        type="select"
+        options={countriesOptions}
+        placeholder="country"
+        defaultValue={user.country}
+      />
+      <DataInput
+        type="stringInput"
+        placeholder="email"
+        regex=""
+        defaultValue={user.email}
+      />
+      <DataInput
+        type="stringInput"
+        placeholder="phone"
+        regex=""
+        defaultValue={user.phone}
+      />
+      <TrashIconButton />
     </div>
   );
 }

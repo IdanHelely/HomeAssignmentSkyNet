@@ -1,0 +1,15 @@
+.delete-btn {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.1s linear;
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+
+  .delete-icon {
+    color: #5b4040;
+    width: 100%;
+    height: 100%;
+  }
+}

@@ -1,8 +1,9 @@
 .usersList {
   border: 1px solid #ccc;
   border-radius: 4px;
-  height: 500px;
+  max-height: min(fit-content, calc(100vh - 150px));
   width: 100%;
+  overflow: auto;
   .usersListHeader {
     display: flex;
     justify-content: space-between;
