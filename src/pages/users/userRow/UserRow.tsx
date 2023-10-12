@@ -6,6 +6,7 @@ import css from './userRow.module.scss';
 import React, { useMemo } from 'react';
 import DataInput from '../../../components/userRow/userDataInput';
 import countryOptions from '../../../data/countries.json';
+import { isValidEmail, isValidName, isValidPhoneNum } from '../../../libs/validations';
 
 const countriesOptions = countryOptions.map((country) => ({
   label: country,
@@ -13,6 +14,7 @@ const countriesOptions = countryOptions.map((country) => ({
 }));
 
 type Props = {
+  index: number;
   user: {
     id: string;
     name: string;
@@ -22,34 +24,69 @@ type Props = {
   };
 };
 
-export default function UserRow({ user }: Props) {
+type InputsCondence = (
+  | {
+      type: 'select';
+      options: { label: string; value: string }[];
+    }
+  | {
+      type: 'stringInput';
+      isValid: (val: string) => boolean;
+    }
+) & {
+  key: string;
+  title: string;
+};
+
+const inputsCondence: InputsCondence[] = [
+  {
+    key: 'name',
+    type: 'stringInput',
+    title: 'name',
+    isValid: (name: string) => isValidName(name),
+  },
+  {
+    key: 'country',
+    type: 'select',
+    title: 'country',
+    options: countriesOptions,
+  },
+  {
+    key: 'email',
+    type: 'stringInput',
+    title: 'email',
+    isValid: (email: string) => isValidEmail(email),
+  },
+  {
+    key: 'phone',
+    type: 'stringInput',
+    title: 'phone',
+    isValid: (phone: string) => isValidPhoneNum(phone),
+  },
+];
+
+export default function UserRow({ user, index }: Props) {
+  const inputsRow = useMemo(
+    () =>
+      inputsCondence.map((value) => (
+        <DataInput
+          key={`${user.id} ${value.key}`}
+          type={value.type}
+          title={value.title}
+          defaultValue={user[value.key]}
+          id={user.id}
+          options={value.type === 'select' && value.options}
+          isValid={value.type === 'stringInput' && value.isValid}
+        />
+      )),
+    []
+  );
+
   return (
     <div className={css['row-container']}>
-      <DataInput
-        type="stringInput"
-        placeholder="name"
-        regex=""
-        defaultValue={user.name}
-      />
-      <DataInput
-        type="select"
-        options={countriesOptions}
-        placeholder="country"
-        defaultValue={user.country}
-      />
-      <DataInput
-        type="stringInput"
-        placeholder="email"
-        regex=""
-        defaultValue={user.email}
-      />
-      <DataInput
-        type="stringInput"
-        placeholder="phone"
-        regex=""
-        defaultValue={user.phone}
-      />
-      <TrashIconButton />
+      <div className={css['index-number']}>{index}</div>
+      {inputsRow}
+      <TrashIconButton id={user.id} />
     </div>
   );
 }

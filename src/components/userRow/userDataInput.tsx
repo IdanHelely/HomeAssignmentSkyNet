@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import css from './styles/userDataInput.module.scss';
 import Select from 'react-select';
 import { useDebounce } from '../../libs/essentials';
+import { useUserStore } from '../../context/usersContext';
+import { isValidName } from '../../libs/validations';
 
 const selectStyle = {
   // general select
@@ -46,15 +48,14 @@ const selectStyle = {
   menu: (provided: any) => ({
     ...provided,
     backgroundColor: '#9b9b9b',
-    borderRadius: '0.5rem',
-    zIndex: 3,
+    borderRadius: '5px',
     overflowY: 'hidden',
   }),
 
   menuList: (provided: any) => ({
     ...provided,
     padding: '0 0 0 0',
-    borderRadius: '0.5rem',
+    borderRadius: '5px',
     '::-webkit-scrollbar': {
       width: '0px',
     },
@@ -72,33 +73,47 @@ const selectStyle = {
 };
 
 type Props = (
-  | ({ type: 'stringInput' } & {
-      regex: string;
-    })
+  | { type: 'stringInput'; isValid: (val: string) => boolean }
   | { type: 'select'; options: { label: string; value: string }[] }
 ) & {
-  placeholder: string;
+  id: string;
+  title: string;
   defaultValue: string | number;
 };
 
-export default function StringInput(props: Props) {
-  useDebounce;
+export default function UserDataInput(props: Props) {
+  const [error, setError] = useState<Boolean>(false);
+
+  const validName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (props.type !== 'stringInput') return;
+    const { value } = e.target;
+
+    if (!props.isValid(value)) {
+      setError(true);
+    } else if (props.isValid(value) && error) {
+      setError(false);
+    }
+  };
 
   if (props.type === 'stringInput') {
     return (
       <input
-        placeholder={props.placeholder}
+        data-is-not-valid={error}
+        placeholder={props.title}
         className={css['string-input']}
         defaultValue={props.defaultValue}
+        onChange={(e) => {
+          validName(e);
+        }}
       />
     );
   } else if (props.type === 'select') {
     return (
       <div className={css['select-container']}>
         <Select
-          options={[...props.options]}
+          options={props.options ? [...props.options] : []}
           styles={selectStyle}
-          placeholder={props.placeholder}
+          placeholder={props.title}
           defaultValue={{ label: props.defaultValue, value: props.defaultValue }}
         />
       </div>

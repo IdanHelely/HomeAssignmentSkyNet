@@ -4,7 +4,7 @@ const isValidName = (name: string): boolean => {
   let valid = true;
 
   for (const singleName of splittedName) {
-    valid = valid && /^[A-Z]([a-z]+){0,2}$/.test(singleName);
+    valid = valid && /^[A-Z]([a-z]+){1,2}$/.test(singleName);
   }
 
   return valid;
@@ -13,6 +13,6 @@ const isValidName = (name: string): boolean => {
 const isValidEmail = (email: string): boolean =>
   /^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]{2,}@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/.test(email);
 
-const isValidPhoneNum = (phone: string) => {};
+const isValidPhoneNum = (phone: string) => true;
 
 export { isValidName, isValidEmail, isValidPhoneNum };

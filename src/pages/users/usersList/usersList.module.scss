@@ -1,9 +1,10 @@
 .usersList {
   border: 1px solid #ccc;
   border-radius: 4px;
-  max-height: min(fit-content, calc(100vh - 150px));
+  height: calc(100% - 42px);
   width: 100%;
-  overflow: auto;
+  overflow: hidden;
+
   .usersListHeader {
     display: flex;
     justify-content: space-between;
@@ -12,11 +13,16 @@
     border-radius: 4px;
     padding: 4px 16px;
     background-color: #1f2a62;
+    height: 47px;
   }
 
-  .usersListContent {
+  .user-list-wrapper {
+    height: calc(100% - 85px);
     overflow: auto;
-    height: calc(100% - 96px);
-    padding: 20px 25px;
+    padding: 15px 25px;
+
+    .usersListContent {
+      height: fit-content;
+    }
   }
 }

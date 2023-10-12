@@ -10,7 +10,7 @@ function App() {
 
   useEffect(() => {
     setInitialData();
-  }, []);
+  }, [setInitialData]);
 
   return (
     <BrowserRouter>

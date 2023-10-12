@@ -9,10 +9,16 @@
   outline: none;
   margin: none;
   padding: 5px 4px;
+  box-sizing: border-box;
+  border: none;
 
   &:focus::placeholder {
     transition: color 0.1s linear;
     color: transparent;
+  }
+
+  &[data-is-not-valid='true'] {
+    outline: 1px red solid;
   }
 }
 

@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, useMemo } from 'react';
 import data from '../data/initialUsersData.json';
-import { StoreApi, UseBoundStore, create } from 'zustand';
+import { create, StoreApi, UseBoundStore } from 'zustand';
 import { randomId } from '../libs/essentials';
 
 type UserData = {
@@ -16,9 +16,10 @@ type StoreContent = {
   setUsersData: (state: any) => void;
   setInitialData: () => void;
   addNewUser: () => void;
+  deleteUser: (id: string) => void;
 };
 
-const setInitialData = () => {
+const prepareInitialData = () => {
   const usersData = {};
   for (const user of data) {
     usersData[user.id] = { ...user };
@@ -29,16 +30,6 @@ const setInitialData = () => {
 
 const createNewUserTemplate: () => Record<string, UserData> = () => {
   const id = randomId();
-
-  console.log('id', {
-    [id]: {
-      id,
-      name: '',
-      country: '',
-      email: '',
-      phone: '',
-    },
-  });
 
   return {
     [id]: {
@@ -60,10 +51,17 @@ const confirmAllFieldsFull = (users: Record<string, UserData>) => {
 export const useUserStore: UseBoundStore<StoreApi<StoreContent>> = create((set) => ({
   usersData: {},
   setUsersData: (state) => set(state),
-  setInitialData: () => set({ usersData: setInitialData() }),
-  addNewUser: () => {
+  setInitialData: () => set({ usersData: prepareInitialData() }),
+  addNewUser: async () => {
     set((state) => ({ usersData: { ...state.usersData, ...createNewUserTemplate() } }));
   },
+  deleteUser: (id) =>
+    set((state) => {
+      const newState: StoreContent['usersData'] = { ...state.usersData };
+      delete newState[id];
+
+      return { usersData: newState };
+    }),
 }));
 
 // // initial value
