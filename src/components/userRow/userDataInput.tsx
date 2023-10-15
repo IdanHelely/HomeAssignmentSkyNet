@@ -50,6 +50,7 @@ const selectStyle = {
     backgroundColor: '#9b9b9b',
     borderRadius: '5px',
     overflowY: 'hidden',
+    zIndex: 10,
   }),
 
   menuList: (provided: any) => ({
@@ -82,23 +83,25 @@ type Props = (
 };
 
 export default function UserDataInput(props: Props) {
-  const [error, setError] = useState<Boolean>(false);
+  const [errorState, setErrorState] = useState<Boolean>(false);
+  const { setError } = useUserStore();
 
   const validName = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (props.type !== 'stringInput') return;
     const { value } = e.target;
 
     if (!props.isValid(value)) {
-      setError(true);
-    } else if (props.isValid(value) && error) {
-      setError(false);
+      setErrorState(true);
+      setError(`the ${props.title} ${value} is not valid`);
+    } else if (props.isValid(value) && errorState) {
+      setErrorState(false);
     }
   };
 
   if (props.type === 'stringInput') {
     return (
       <input
-        data-is-not-valid={error}
+        data-is-not-valid={errorState}
         placeholder={props.title}
         className={css['string-input']}
         defaultValue={props.defaultValue}
@@ -115,6 +118,7 @@ export default function UserDataInput(props: Props) {
           styles={selectStyle}
           placeholder={props.title}
           defaultValue={{ label: props.defaultValue, value: props.defaultValue }}
+          menuPlacement="auto"
         />
       </div>
     );

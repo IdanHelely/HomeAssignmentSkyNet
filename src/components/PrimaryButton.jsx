@@ -15,19 +15,6 @@ const StyledButton = styled(Button)({
   },
 });
 
-const PrimaryButton = ({ children, disabled, handleClick }) => {
-  return (
-    <StyledButton variant="contained" disabled={disabled} onClick={handleClick}>
-      {children}
-    </StyledButton>
-  );
-};
-
-// TODO: Implement passed props
-PrimaryButton.defaultProps = {
-  children: null,
-  disabled: false,
-  handleClick: () => {},
-};
-
-export default PrimaryButton;
+export default function PrimaryButton({ children }) {
+  return <StyledButton variant="contained">{children}</StyledButton>;
+}

@@ -11,10 +11,33 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    gap: 5px;
 
-    .rightButtonContainer {
-      margin-left: auto;
+    .bottom-container {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
       height: 42px;
+      position: relative;
+
+      .error-container {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        color: rgb(220, 52, 35);
+        font-size: 1.1rem;
+        opacity: 0;
+        transition: opacity 0.3s linear;
+
+        &[data-is-shown='true'] {
+          opacity: 1;
+        }
+      }
+
+      .rightButtonContainer {
+        height: 100%;
+      }
     }
   }
 }

@@ -8,7 +8,7 @@ import DataInput from '../../../components/userRow/userDataInput';
 import countryOptions from '../../../data/countries.json';
 import { isValidEmail, isValidName, isValidPhoneNum } from '../../../libs/validations';
 
-const countriesOptions = countryOptions.map((country) => ({
+const countriesOptions = Object.keys(countryOptions).map((country) => ({
   label: country,
   value: country,
 }));
@@ -31,7 +31,7 @@ type InputsCondence = (
     }
   | {
       type: 'stringInput';
-      isValid: (val: string) => boolean;
+      isValid: (val: string, country?: string) => boolean;
     }
 ) & {
   key: string;
@@ -61,7 +61,7 @@ const inputsCondence: InputsCondence[] = [
     key: 'phone',
     type: 'stringInput',
     title: 'phone',
-    isValid: (phone: string) => isValidPhoneNum(phone),
+    isValid: (phone: string, country: string) => isValidPhoneNum(phone, country),
   },
 ];
 
@@ -76,7 +76,11 @@ export default function UserRow({ user, index }: Props) {
           defaultValue={user[value.key]}
           id={user.id}
           options={value.type === 'select' && value.options}
-          isValid={value.type === 'stringInput' && value.isValid}
+          isValid={(inputVal) => {
+            if (value.type !== 'stringInput') return;
+            if (value.title === 'phone') return value.isValid(inputVal, user.country);
+            return value.isValid(inputVal);
+          }}
         />
       )),
     []
@@ -84,20 +88,9 @@ export default function UserRow({ user, index }: Props) {
 
   return (
     <div className={css['row-container']}>
-      <div className={css['index-number']}>{index}</div>
+      <div className={css['index-number']}>{index + 1}</div>
       {inputsRow}
-      <TrashIconButton id={user.id} />
+      <TrashIconButton index={index} />
     </div>
   );
 }
-
-// const UserRow = () => {
-//   return (
-//     <Grid container className={css.userRow}>
-//       {/* Render each user row inputs and trash icon at the end of each row */}
-//       {/* <TrashIconButton /> */}
-//     </Grid>
-//   );
-// };
-
-// export default UserRow;

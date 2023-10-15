@@ -1,9 +1,9 @@
 .usersList {
   border: 1px solid #ccc;
   border-radius: 4px;
-  height: calc(100% - 42px);
+  padding-bottom: 5px;
+  height: calc(100% - 47px);
   width: 100%;
-  overflow: hidden;
 
   .usersListHeader {
     display: flex;
@@ -17,9 +17,9 @@
   }
 
   .user-list-wrapper {
-    height: calc(100% - 85px);
+    height: calc(100% - 65px);
     overflow: auto;
-    padding: 15px 25px;
+    padding: 5px 25px;
 
     .usersListContent {
       height: fit-content;

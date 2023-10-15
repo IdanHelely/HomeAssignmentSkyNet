@@ -3,6 +3,7 @@
     "jsx": "preserve",
     "target": "es5",
     "lib": ["es2020", "dom", "dom.iterable"],
+    "types": ["node"],
     "baseUrl": "./src",
     "resolveJsonModule": true,
     "esModuleInterop": true,
@@ -12,6 +13,11 @@
       "@/svg/*": ["libs/svgs/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "index.d.ts",
+    "src/components/PrimaryButton.jsx"
+  ],
   "exclude": ["node_modules"]
 }

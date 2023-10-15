@@ -3,14 +3,14 @@ import Trash from '../../libs/svgs/trash';
 import { useUserStore } from '../../context/usersContext';
 
 type Props = {
-  id: string;
+  index: number;
 };
 
-export default function TrashIconButton({ id }: Props) {
+export default function TrashIconButton({ index }: Props) {
   const { deleteUser } = useUserStore();
 
   return (
-    <div className={css['delete-btn']} onClick={() => deleteUser(id)}>
+    <div className={css['delete-btn']} onClick={() => deleteUser(index)}>
       <Trash className={css['delete-icon']} fill="red" />
     </div>
   );
