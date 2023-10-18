@@ -8,7 +8,7 @@ const isValidName = (name: string): boolean => {
   let valid = true;
 
   for (const singleName of splittedName) {
-    valid = valid && /^[A-Z]([a-z]+){1,2}$/.test(singleName);
+    valid = valid && /^[A-Z]([a-z é]+){0,2}$/.test(singleName);
   }
 
   return valid;

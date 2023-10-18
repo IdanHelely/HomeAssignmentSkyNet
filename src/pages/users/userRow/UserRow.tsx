@@ -74,7 +74,7 @@ export default function UserRow({ user, index }: Props) {
           type={value.type}
           title={value.title}
           defaultValue={user[value.key]}
-          id={user.id}
+          index={index}
           options={value.type === 'select' && value.options}
           isValid={(inputVal) => {
             if (value.type !== 'stringInput') return;

@@ -11,6 +11,12 @@ const randomId = (length: number = 16) => {
   return res;
 };
 
+/**
+ *
+ * @param value the value that changes
+ * @param delay the number of seconds until the debounced value changes
+ * @returns the value but changes after there was no change and the time of the delay ran out
+ */
 function useDebounce<T>(value: T, delay?: number): T {
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
 

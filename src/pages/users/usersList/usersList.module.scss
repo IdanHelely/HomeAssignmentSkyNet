@@ -21,6 +21,19 @@
     overflow: auto;
     padding: 5px 25px;
 
+    &::-webkit-scrollbar {
+      width: 6px;
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 3px;
+      background-color: rgb(190, 190, 190);
+    }
+    &::-webkit-scrollbar-button {
+      display: none;
+    }
+
     .usersListContent {
       height: fit-content;
     }

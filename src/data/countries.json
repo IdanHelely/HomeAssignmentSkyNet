@@ -1,10 +1,10 @@
 {
   "Israel": { "prefix": "972", "numberOfDigits": "12" },
-  "China": { "prefix": "86", "numberOfDigits": "11" },
+  "China": { "prefix": "86", "numberOfDigits": "12" },
   "Ukraine": { "prefix": "380", "numberOfDigits": "12" },
   "Canada": { "prefix": "1", "numberOfDigits": "11" },
   "Brazil": { "prefix": "55", "numberOfDigits": "13" },
-  "Morocco": { "prefix": "212", "numberOfDigits": "10" },
-  "France": { "prefix": "33", "numberOfDigits": "10" },
-  "Japan": { "prefix": "81", "numberOfDigits": "10" }
+  "Morocco": { "prefix": "212", "numberOfDigits": "12" },
+  "France": { "prefix": "33", "numberOfDigits": "11" },
+  "Japan": { "prefix": "81", "numberOfDigits": "12" }
 }

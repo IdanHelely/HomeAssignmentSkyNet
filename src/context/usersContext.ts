@@ -14,7 +14,7 @@ export type UserData = {
 
 type StoreContent = {
   usersData: UserData[];
-  setUsersData: (state: any) => void;
+  setUserData: (index: number, fieldKey: string, value: string) => void;
   setInitialData: () => void;
   addNewUser: () => void;
   deleteUser: (index: number) => void;
@@ -41,7 +41,13 @@ const saveData = (data: UserData[]) => {
 
 export const useUserStore: UseBoundStore<StoreApi<StoreContent>> = create((set) => ({
   usersData: [],
-  setUsersData: (state) => set(state),
+  setUserData: (index, fieldKey, value) =>
+    set((state) => {
+      const usersDataCopy = [...state.usersData];
+      usersDataCopy[index][fieldKey] = value;
+
+      return { usersData: usersDataCopy };
+    }),
   setInitialData: () => set({ usersData: data }),
   addNewUser: async () => {
     set((state) => ({ usersData: [...state.usersData, createNewUserTemplate()] }));

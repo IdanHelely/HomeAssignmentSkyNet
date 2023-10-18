@@ -77,26 +77,40 @@ type Props = (
   | { type: 'stringInput'; isValid: (val: string) => boolean }
   | { type: 'select'; options: { label: string; value: string }[] }
 ) & {
-  id: string;
   title: string;
-  defaultValue: string | number;
+  defaultValue: string;
+  index: number;
 };
 
 export default function UserDataInput(props: Props) {
   const [errorState, setErrorState] = useState<Boolean>(false);
-  const { setError } = useUserStore();
+  const [inputValue, setInputValue] = useState<string>(props.defaultValue);
+  const { usersData, setError, setUserData } = useUserStore();
 
-  const validName = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // uses debounce so that the state won't change with every single change, updates when the timer runs out
+  const debouncedInputValue = useDebounce(inputValue, 700);
+
+  useEffect(() => {
+    setUserData(props.index, props.title, debouncedInputValue);
+  }, [debouncedInputValue]);
+
+  const validInput = (inputVal: string) => {
     if (props.type !== 'stringInput') return;
-    const { value } = e.target;
 
-    if (!props.isValid(value)) {
+    if (!props.isValid(inputVal)) {
       setErrorState(true);
-      setError(`the ${props.title} ${value} is not valid`);
-    } else if (props.isValid(value) && errorState) {
+      setError(`the ${props.title} ${inputVal} is not valid`);
+    } else if (props.isValid(inputVal) && errorState) {
       setErrorState(false);
     }
   };
+
+  // when the country changes the validation of the phone changes as well
+  useEffect(() => {
+    if (props.title === 'phone' && usersData[props.index].country !== '') {
+      validInput(inputValue);
+    }
+  }, [usersData[props.index].country]);
 
   if (props.type === 'stringInput') {
     return (
@@ -104,10 +118,11 @@ export default function UserDataInput(props: Props) {
         data-is-not-valid={errorState}
         placeholder={props.title}
         className={css['string-input']}
-        defaultValue={props.defaultValue}
         onChange={(e) => {
-          validName(e);
+          validInput(e.target.value);
+          setInputValue(e.target.value);
         }}
+        value={inputValue}
       />
     );
   } else if (props.type === 'select') {
@@ -119,6 +134,9 @@ export default function UserDataInput(props: Props) {
           placeholder={props.title}
           defaultValue={{ label: props.defaultValue, value: props.defaultValue }}
           menuPlacement="auto"
+          onChange={({ value }) => {
+            setUserData(props.index, props.title, value);
+          }}
         />
       </div>
     );
