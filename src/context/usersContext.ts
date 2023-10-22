@@ -1,7 +1,6 @@
 import data from '../data/initialUsersData.json';
 import { create, StoreApi, UseBoundStore } from 'zustand';
 import { randomId } from '../libs/essentials';
-import { isValidName, isValidEmail, isValidPhoneNum } from '../libs/validations';
 import { changeJSON } from '../api/server';
 
 export type UserData = {
@@ -39,6 +38,8 @@ const saveData = (data: UserData[]) => {
   changeJSON();
 };
 
+let timer;
+
 export const useUserStore: UseBoundStore<StoreApi<StoreContent>> = create((set) => ({
   usersData: [],
   setUserData: (index, fieldKey, value) =>
@@ -60,11 +61,13 @@ export const useUserStore: UseBoundStore<StoreApi<StoreContent>> = create((set) 
 
       return { usersData: newState };
     }),
-  error: { msg: 'walahi', shown: true },
+  error: { msg: '', shown: false },
   setError: (err) => {
     set({ error: { msg: err, shown: true } });
 
-    setTimeout(() => {
+    if (typeof timer === 'number') clearTimeout(timer);
+
+    timer = setTimeout(() => {
       set({ error: { msg: err, shown: false } });
     }, 3000);
   },

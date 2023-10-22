@@ -37,6 +37,7 @@ export default function StatisticsPage() {
     const countriesCount = {};
 
     for (const { country } of usersData) {
+      if (!country) continue;
       if (!(country in countriesCount)) countriesCount[country] = 1;
       else countriesCount[country] += 1;
     }
@@ -75,8 +76,8 @@ export default function StatisticsPage() {
                   const imageWidth = 30;
                   ctx.drawImage(
                     image,
-                    -image.width / 2,
-                    -image.height / 2,
+                    -(image?.width ?? 24) / 2,
+                    -(image?.height ?? 24) / 2,
                     imageWidth,
                     (imageWidth / 8) * 5
                   );

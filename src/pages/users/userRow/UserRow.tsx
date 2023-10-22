@@ -31,7 +31,10 @@ type InputsCondence = (
     }
   | {
       type: 'stringInput';
-      isValid: (val: string, country?: string) => boolean;
+      isValid: (
+        val: string,
+        country?: string
+      ) => { valid: false; errorMsg: string } | { valid: true };
     }
 ) & {
   key: string;

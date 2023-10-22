@@ -3,7 +3,6 @@ import css from './styles/userDataInput.module.scss';
 import Select from 'react-select';
 import { useDebounce } from '../../libs/essentials';
 import { useUserStore } from '../../context/usersContext';
-import { isValidName } from '../../libs/validations';
 
 const selectStyle = {
   // general select
@@ -74,7 +73,10 @@ const selectStyle = {
 };
 
 type Props = (
-  | { type: 'stringInput'; isValid: (val: string) => boolean }
+  | {
+      type: 'stringInput';
+      isValid: (val: string) => { valid: false; errorMsg: string } | { valid: true };
+    }
   | { type: 'select'; options: { label: string; value: string }[] }
 ) & {
   title: string;
@@ -97,10 +99,12 @@ export default function UserDataInput(props: Props) {
   const validInput = (inputVal: string) => {
     if (props.type !== 'stringInput') return;
 
-    if (!props.isValid(inputVal)) {
+    const validation = props.isValid(inputVal);
+
+    if (validation.valid === false) {
       setErrorState(true);
-      setError(`the ${props.title} ${inputVal} is not valid`);
-    } else if (props.isValid(inputVal) && errorState) {
+      setError(validation.errorMsg);
+    } else if (validation.valid && errorState) {
       setErrorState(false);
     }
   };
