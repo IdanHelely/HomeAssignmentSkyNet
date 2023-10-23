@@ -24,11 +24,7 @@ export default function UserDataInput(props: Props) {
   const { usersData, setError, setUserData } = useUserStore();
 
   // uses debounce so that the state won't change with every single change, updates when the timer runs out
-  const debouncedInputValue = useDebounce(inputValue, 700);
-
-  useEffect(() => {
-    setUserData(props.index, props.title, debouncedInputValue);
-  }, [debouncedInputValue]);
+  const debouncedInputValue = useDebounce(inputValue, 300);
 
   const validInput = (inputVal: string) => {
     if (props.type !== 'stringInput') return;
@@ -42,6 +38,11 @@ export default function UserDataInput(props: Props) {
       setErrorState(null);
     }
   };
+
+  useEffect(() => {
+    validInput(debouncedInputValue);
+    setUserData(props.index, props.title, debouncedInputValue);
+  }, [debouncedInputValue]);
 
   // when the country changes the validation of the phone changes as well
   useEffect(() => {
@@ -67,7 +68,6 @@ export default function UserDataInput(props: Props) {
           placeholder={props.title}
           className={css['string-input']}
           onChange={(e) => {
-            validInput(e.target.value);
             setInputValue(e.target.value);
           }}
           value={inputValue}
