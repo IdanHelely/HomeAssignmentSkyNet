@@ -1,0 +1,6 @@
+@use '../../components/userRow/styles/userDataInput.module.scss';
+
+.search {
+  width: 150px;
+  @include userDataInput.input;
+}

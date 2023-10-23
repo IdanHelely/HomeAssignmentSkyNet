@@ -1,10 +1,42 @@
 {
-  "Israel": { "prefix": "972", "numberOfDigits": "12" },
-  "China": { "prefix": "86", "numberOfDigits": "12" },
-  "Ukraine": { "prefix": "380", "numberOfDigits": "12" },
-  "Canada": { "prefix": "1", "numberOfDigits": "11" },
-  "Brazil": { "prefix": "55", "numberOfDigits": "13" },
-  "Morocco": { "prefix": "212", "numberOfDigits": "12" },
-  "France": { "prefix": "33", "numberOfDigits": "11" },
-  "Japan": { "prefix": "81", "numberOfDigits": "12" }
+  "Israel": {
+    "prefix": "972",
+    "numberOfDigits": "12",
+    "flag": "/static/flags/Flag_of_Israel.svg.webp"
+  },
+  "China": {
+    "prefix": "86",
+    "numberOfDigits": "12",
+    "flag": "/static/flags/Flag-China.webp"
+  },
+  "Ukraine": {
+    "prefix": "380",
+    "numberOfDigits": "12",
+    "flag": "/static/flags/Flag-Ukraine.webp"
+  },
+  "Canada": {
+    "prefix": "1",
+    "numberOfDigits": "11",
+    "flag": "/static/flags/Flag-Canada.webp"
+  },
+  "Brazil": {
+    "prefix": "55",
+    "numberOfDigits": "13",
+    "flag": "/static/flags/640px-Flag_of_Brazil.svg.png"
+  },
+  "Morocco": {
+    "prefix": "212",
+    "numberOfDigits": "12",
+    "flag": "/static/flags/Flag-Morocco.webp"
+  },
+  "France": {
+    "prefix": "33",
+    "numberOfDigits": "11",
+    "flag": "/static/flags/Flag_of_France.png"
+  },
+  "Japan": {
+    "prefix": "81",
+    "numberOfDigits": "12",
+    "flag": "/static/flags/Japan_flag.png"
+  }
 }

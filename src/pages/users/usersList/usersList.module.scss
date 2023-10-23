@@ -1,3 +1,5 @@
+@use '../../../components/userRow/styles/userDataInput.module.scss';
+
 .usersList {
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -14,11 +16,21 @@
     padding: 4px 16px;
     background-color: #1f2a62;
     height: 47px;
+
+    .right-side-container {
+      display: flex;
+      gap: 10px;
+
+      .sorter-container {
+        width: 110px;
+      }
+    }
   }
 
   .user-list-wrapper {
     height: calc(100% - 65px);
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     padding: 5px 25px;
 
     &::-webkit-scrollbar {

@@ -98,9 +98,9 @@ const isValidPhoneNum = (phone: string, country?: string): ErrorReturnType => {
 
       if (!new RegExp(`^[+]${prefix}`).test(phone)) {
         errorMsg = `the phone number ${phone} must start with the prefix ${prefix} according to the country of ${country}`;
-      } else if (phone.length > numberOfDigitsParsed) {
+      } else if (phone.length - 1 > numberOfDigitsParsed) {
         errorMsg = `the phone number ${phone} cannot go over ${numberOfDigitsParsed} digits according to the country of ${country}`;
-      } else if (phone.length < numberOfDigitsParsed) {
+      } else if (phone.length - 1 < numberOfDigitsParsed) {
         errorMsg = `the phone number ${phone} cannot be less then ${numberOfDigitsParsed} digits according to the country of ${country}`;
       }
     }
@@ -108,15 +108,16 @@ const isValidPhoneNum = (phone: string, country?: string): ErrorReturnType => {
 
     return { valid, errorMsg };
   }
-
-  return { valid };
+  if (valid) {
+    return { valid };
+  }
 };
 
 const isValidUser = (user: UserData): boolean => {
   if (
-    isValidName(user.name) &&
-    isValidEmail(user.email) &&
-    isValidPhoneNum(user.phone) &&
+    isValidName(user.name).valid &&
+    isValidEmail(user.email).valid &&
+    isValidPhoneNum(user.phone, user.country).valid &&
     user.country !== ''
   )
     return true;
@@ -124,4 +125,17 @@ const isValidUser = (user: UserData): boolean => {
   return false;
 };
 
-export { isValidName, isValidEmail, isValidPhoneNum, isValidUser };
+const isValidUsers = (
+  users: UserData[]
+): { valid: true } | { valid: false; index: number } => {
+  for (let i = 0; i < users.length; i++) {
+    const user = users[i];
+    if (!isValidUser(user)) {
+      return { valid: false, index: i };
+    }
+  }
+
+  return { valid: true };
+};
+
+export { isValidName, isValidEmail, isValidPhoneNum, isValidUser, isValidUsers };

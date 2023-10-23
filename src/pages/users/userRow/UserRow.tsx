@@ -7,6 +7,7 @@ import React, { useMemo } from 'react';
 import DataInput from '../../../components/userRow/userDataInput';
 import countryOptions from '../../../data/countries.json';
 import { isValidEmail, isValidName, isValidPhoneNum } from '../../../libs/validations';
+import { useUserStore } from '../../../context/usersContext';
 
 const countriesOptions = Object.keys(countryOptions).map((country) => ({
   label: country,
@@ -69,9 +70,10 @@ const inputsCondence: InputsCondence[] = [
 ];
 
 export default function UserRow({ user, index }: Props) {
-  const inputsRow = useMemo(
-    () =>
-      inputsCondence.map((value) => (
+  return (
+    <div className={css['row-container']}>
+      <div className={css['index-number']}>{index + 1}</div>
+      {inputsCondence.map((value) => (
         <DataInput
           key={`${user.id} ${value.key}`}
           type={value.type}
@@ -85,14 +87,7 @@ export default function UserRow({ user, index }: Props) {
             return value.isValid(inputVal);
           }}
         />
-      )),
-    []
-  );
-
-  return (
-    <div className={css['row-container']}>
-      <div className={css['index-number']}>{index + 1}</div>
-      {inputsRow}
+      ))}
       <TrashIconButton index={index} />
     </div>
   );

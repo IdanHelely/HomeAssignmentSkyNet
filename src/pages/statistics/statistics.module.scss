@@ -3,10 +3,46 @@
   justify-content: center;
   padding: 30px;
   height: calc(100vh - 150px);
+  position: relative;
+
+  .countries-data {
+    position: absolute;
+    left: 50px;
+    display: flex;
+    flex-direction: column;
+
+    .country-container {
+      display: flex;
+      gap: 5px;
+      font-size: 1.1rem;
+
+      .flag-container {
+        width: 20px;
+        object-fit: contain;
+      }
+
+      .country-name-container {
+        font-weight: 600;
+      }
+    }
+  }
 
   .chart-container {
     width: 500px;
     height: 500px;
     position: relative;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .pageRoot {
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+
+    .countries-data {
+      position: static;
+    }
   }
 }

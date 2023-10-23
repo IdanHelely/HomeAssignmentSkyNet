@@ -17,7 +17,8 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "index.d.ts",
-    "src/components/PrimaryButton.jsx"
+    "src/**/*.jsx",
+    "src/api/server.js"
   ],
   "exclude": ["node_modules"]
 }

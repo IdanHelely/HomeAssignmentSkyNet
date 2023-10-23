@@ -1,7 +1,7 @@
-import data from '../data/initialUsersData.json';
+import data from '../data/usersData.json';
 import { create, StoreApi, UseBoundStore } from 'zustand';
 import { randomId } from '../libs/essentials';
-import { changeJSON } from '../api/server';
+import axios from 'axios';
 
 export type UserData = {
   id: string;
@@ -20,6 +20,8 @@ type StoreContent = {
   saveData: (data: UserData[]) => void;
   error: { msg: string; shown: boolean };
   setError: (err: string) => void;
+  searchValue: string;
+  setSearchValue: (searchValue: string) => void;
 };
 
 const createNewUserTemplate: () => UserData = () => ({
@@ -30,12 +32,18 @@ const createNewUserTemplate: () => UserData = () => ({
   phone: '',
 });
 
-/**
- *
- * @param data needs work
- */
-const saveData = (data: UserData[]) => {
-  changeJSON();
+const updateJsonData = (data: UserData[]) => {
+  const updatedData = [...data];
+
+  axios.post('http://localhost:5000/api/update-json');
+
+  fetch('http://localhost:5000/api/update-json', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updatedData),
+  });
 };
 
 let timer;
@@ -49,11 +57,14 @@ export const useUserStore: UseBoundStore<StoreApi<StoreContent>> = create((set) 
 
       return { usersData: usersDataCopy };
     }),
-  setInitialData: () => set({ usersData: data }),
+  setInitialData: () =>
+    Object.keys(data).length === 0 ? set({ usersData: [] }) : set({ usersData: data }),
   addNewUser: async () => {
     set((state) => ({ usersData: [...state.usersData, createNewUserTemplate()] }));
   },
-  saveData: (data: UserData[]) => saveData(data),
+  saveData: (data: UserData[]) => {
+    updateJsonData(data);
+  },
   deleteUser: (index) =>
     set((state) => {
       const newState: StoreContent['usersData'] = [...state.usersData];
@@ -71,4 +82,6 @@ export const useUserStore: UseBoundStore<StoreApi<StoreContent>> = create((set) 
       set({ error: { msg: err, shown: false } });
     }, 3000);
   },
+  searchValue: '',
+  setSearchValue: (searchValue) => set({ searchValue }),
 }));

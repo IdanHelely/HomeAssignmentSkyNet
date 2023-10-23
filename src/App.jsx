@@ -16,8 +16,8 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Routes>
-        <Route path="/" element={<StatisticsPage />} />
-        <Route path="users" element={<UsersPage />} />
+        <Route path="/statistics" element={<StatisticsPage />} />
+        <Route path="/" element={<UsersPage />} />
       </Routes>
     </BrowserRouter>
   );

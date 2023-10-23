@@ -29,6 +29,7 @@
         font-size: 1.1rem;
         opacity: 0;
         transition: opacity 0.3s linear;
+        text-align: center;
 
         &[data-is-shown='true'] {
           opacity: 1;

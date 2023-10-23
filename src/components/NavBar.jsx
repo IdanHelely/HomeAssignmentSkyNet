@@ -16,10 +16,10 @@ function NavBar() {
           }}
         >
           <Button component={RouterLink} to="/" color="inherit">
-            Statistics
-          </Button>
-          <Button component={RouterLink} to="/users" color="inherit">
             Users
+          </Button>
+          <Button component={RouterLink} to="/statistics" color="inherit">
+            Statistics
           </Button>
         </Toolbar>
       </AppBar>
